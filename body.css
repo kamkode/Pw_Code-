@@ -1,0 +1,12 @@
+body {  
+ background-color: #000;    
+ margin: 0;  
+ overflow: hidden;  
+ background-repeat: no-repeat;  
+  friends = ["John", "Jane", "Alice", "Bob", "Amit", "Swadhin", "Kabita"]
+
+for friend in friends:
+    print("Hello, " + friend + "! How are you doing today?")
+
+print("That's it for now, folks!")
+}  

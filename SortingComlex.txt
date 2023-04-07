@@ -1,0 +1,117 @@
+
+import java.util.*;
+
+import javax.lang.model.util.ElementScanner6;
+
+class Student5 implements Comparable<Student5>
+{
+    int marks;
+    int age;
+    String name;
+    public Student5(int marks, int age, String name) {
+        this.marks = marks;
+        this.age = age;
+        this.name = name;
+    }
+    public int getMarks() {
+        return marks;
+    }
+    public int getAge() {
+        return age;
+    }
+    public String getName() {
+        return name;
+    }
+    public String toString()
+    {
+        return "" + marks + " - " + age +" -"+ name;
+    }
+    public int compareTo(Student5 st)
+    {
+        if(this.age>st.age )
+        {
+            return 1;
+
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+
+
+}
+
+// class Alpha implements Comparator<Student5>
+// {
+//     public int compare(Student5 a, Student5 b)
+//     {
+//         if(a.marks>b.marks)
+//         {
+//             return 1;
+//         }
+//         else{
+//             return -1;
+
+//         }
+
+//     }
+
+// }
+
+public class LaunchSorting 
+{
+    public static void main(String[] args) 
+    {
+        Student5 st1=new Student5(45, 18, "Rohan");
+        Student5 st2=new Student5(50, 17, "Rohit");
+        Student5 st3=new Student5(25, 22,"Ramesh");
+
+
+       // Alpha a=new Alpha();
+
+    //    Comparator<Student5> cm=(Student5 a, Student5 b)-> 
+    //     {
+    //     if(a.marks>b.marks)
+    //     {
+    //         return 1;
+    //     }
+    //     else{
+    //         return -1;
+
+    //     }
+
+        
+    //    };
+        
+
+        List<Student5> list=new ArrayList<Student5>();
+        list.add(st1);
+        list.add(st2);
+        list.add(st3);
+
+       
+       
+
+        //Collections.sort(list);
+        Collections.sort(list,
+        (Student5 a, Student5 b)-> 
+         {
+         if(a.marks>b.marks)
+         {
+             return 1;
+         }
+         else{
+             return -1;
+ 
+         }
+ 
+         
+        });
+        Collections.sort(list);
+        System.out.println(list);
+        
+    }
+    
+}
