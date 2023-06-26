@@ -1,0 +1,195 @@
+                                         Assignment 1 
+
+
+
+
+
+
+
+
+1.import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        // Create a map to store the complement of each number and its index
+        Map<Integer, Integer> complementMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            // If the complement exists in the map, we found the solution
+            if (complementMap.containsKey(complement)) {
+                return new int[]{complementMap.get(complement), i};
+            }
+            // Otherwise, store the current number and its index in the map
+            complementMap.put(nums[i], i);
+        }
+
+        // No solution found
+        return new int[0];
+    }
+}
+
+
+2.public class Solution {
+    public int removeElement(int[] nums, int val) {
+        int k = 0; // Represents the number of elements not equal to val
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+
+        return k;
+    }
+}
+
+
+3.public class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        // If the target is not found, left represents the index where it would be inserted
+        return left;
+    }
+}
+
+
+4.public class Solution {
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        
+        // Traverse the digits array from right to left
+        for (int i = n - 1; i >= 0; i--) {
+            // If the current digit is less than 9, we can simply increment it and return the array
+            if (digits[i] < 9) {
+                digits[i]++;
+                return digits;
+            }
+            
+            // If the current digit is 9, set it to 0 and propagate the carry to the next digit
+            digits[i] = 0;
+        }
+        
+        // If we reach this point, it means that all digits were 9 and we need to create a new array
+        // with one additional digit to store the carry
+        int[] newDigits = new int[n + 1];
+        newDigits[0] = 1;
+        
+        return newDigits;
+    }
+}
+
+
+
+
+5.public class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int p1 = m - 1; // Pointer for nums1
+        int p2 = n - 1; // Pointer for nums2
+        int p = m + n - 1; // Pointer for the merged array
+
+        while (p1 >= 0 && p2 >= 0) {
+            // Compare the elements at the pointers and place the larger one at the end of nums1
+            if (nums1[p1] > nums2[p2]) {
+                nums1[p] = nums1[p1];
+                p1--;
+            } else {
+                nums1[p] = nums2[p2];
+                p2--;
+            }
+            p--;
+        }
+
+        // Copy the remaining elements from nums2 to nums1 if any are left
+        while (p2 >= 0) {
+            nums1[p] = nums2[p2];
+            p2--;
+            p--;
+        }
+    }
+}
+
+
+
+
+6.import java.util.HashSet;
+
+public class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int num : nums) {
+            if (set.contains(num)) {
+                return true;
+            }
+            set.add(num);
+        }
+
+        return false;
+    }
+}
+
+
+
+
+
+7.public class Solution {
+    public void moveZeroes(int[] nums) {
+        int left = 0; // Pointer for non-zero elements
+        
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] != 0) {
+                // Swap the non-zero element with the element at the left pointer
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+            }
+        }
+    }
+}
+
+
+
+
+8.import java.util.HashSet;
+
+public class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int[] result = new int[2];
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int num : nums) {
+            if (set.contains(num)) {
+                result[0] = num; // Duplicate number
+            } else {
+                set.add(num);
+            }
+        }
+
+        for (int i = 1; i <= nums.length; i++) {
+            if (!set.contains(i)) {
+                result[1] = i; // Missing number
+                break;
+            }
+        }
+
+        return result;
+    }
+}
