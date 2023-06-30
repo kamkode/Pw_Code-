@@ -1,0 +1,276 @@
+                                                      Assignment Questions 3 
+1.import java.util.Arrays;
+
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int closestSum = nums[0] + nums[1] + nums[2];
+        
+        for (int i = 0; i < nums.length - 2; i++) {
+            int left = i + 1;
+            int right = nums.length - 1;
+            
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                
+                if (sum == target) {
+                    return sum;
+                }
+                
+                if (Math.abs(sum - target) < Math.abs(closestSum - target)) {
+                    closestSum = sum;
+                }
+                
+                if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        
+        return closestSum;
+    }
+}
+
+
+
+
+2.import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums == null || nums.length < 4) {
+            return result;
+        }
+        
+        Arrays.sort(nums);
+        
+        int n = nums.length;
+        for (int i = 0; i < n - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            
+            for (int j = i + 1; j < n - 2; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                
+                int left = j + 1;
+                int right = n - 1;
+                
+                while (left < right) {
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    
+                    if (sum == target) {
+                        result.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                        
+                        while (left < right && nums[left] == nums[left + 1]) {
+                            left++;
+                        }
+                        left++;
+                        
+                        while (left < right && nums[right] == nums[right - 1]) {
+                            right--;
+                        }
+                        right--;
+                    } else if (sum < target) {
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+        }
+        
+        if (result.isEmpty()) {
+            return result;
+        }
+        
+        return result;
+    }
+}
+
+
+
+3.class Solution {
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        
+        // Find the first index i from right to left where nums[i] < nums[i+1]
+        int i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+        
+        if (i >= 0) {
+            // Find the first index j from right to left where nums[j] > nums[i]
+            int j = n - 1;
+            while (j >= 0 && nums[j] <= nums[i]) {
+                j--;
+            }
+            
+            // Swap nums[i] and nums[j]
+            swap(nums, i, j);
+        }
+        
+        // Reverse the sub-array from i+1 to the end
+        reverse(nums, i + 1, n - 1);
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            swap(nums, start, end);
+            start++;
+            end--;
+        }
+    }
+}
+
+
+
+4.class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        
+        return left;
+    }
+}
+
+
+
+5.class Solution {
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        
+        // Iterate the digits from right to left
+        for (int i = n - 1; i >= 0; i--) {
+            // If the current digit is less than 9, we can simply increment it and return the array
+            if (digits[i] < 9) {
+                digits[i]++;
+                return digits;
+            }
+            
+            // If the current digit is 9, set it to 0 and continue to the next digit
+            digits[i] = 0;
+        }
+        
+        // If we reach this point, it means all the digits were 9s, so we need to create a new array
+        // with an additional element to accommodate the carry-over
+        int[] newDigits = new int[n + 1];
+        newDigits[0] = 1; // Set the most significant digit to 1
+        
+        return newDigits;
+    }
+}
+
+
+
+6.class Solution {
+    public int singleNumber(int[] nums) {
+        int result = 0;
+        
+        // Iterate over each bit position
+        for (int i = 0; i < 32; i++) {
+            int sum = 0;
+            
+            // Count the number of occurrences of the current bit position
+            for (int num : nums) {
+                if (((num >> i) & 1) == 1) {
+                    sum++;
+                    sum %= 3;
+                }
+            }
+            
+            // Set the bit value of the single element
+            if (sum != 0) {
+                result |= (sum << i);
+            }
+        }
+        
+        return result;
+    }
+}
+
+
+
+7.import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String> result = new ArrayList<>();
+        
+        if (nums.length == 0) {
+            return result;
+        }
+        
+        int start = nums[0];
+        int end = nums[0];
+        
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == end + 1) {
+                end = nums[i];
+            } else {
+                result.add(formatRange(start, end));
+                start = nums[i];
+                end = nums[i];
+            }
+        }
+        
+        result.add(formatRange(start, end));
+        
+        return result;
+    }
+    
+    private String formatRange(int start, int end) {
+        if (start == end) {
+            return String.valueOf(start);
+        } else {
+            return start + "->" + end;
+        }
+    }
+}
+
+
+
+8.import java.util.Arrays;
+
+class Solution {
+    public boolean canAttendMeetings(int[][] intervals) {
+        // Sort the intervals based on the start time
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        
+        // Check if there is any overlap between adjacent intervals
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] < intervals[i - 1][1]) {
+                return false; // There is an overlap, cannot attend all meetings
+            }
+        }
+        
+        return true; // No overlap, can attend all meetings
+    }
+}
