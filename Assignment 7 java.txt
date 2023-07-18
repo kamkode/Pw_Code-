@@ -1,0 +1,104 @@
+
+                                                   Assignment 7
+
+
+
+Q1. What is the use of JDBC in Java?
+
+JDBC (Java Database Connectivity) is a Java API that allows Java applications to interact with relational databases. It provides a set of classes and methods to connect to a database, perform SQL queries, and manipulate data. JDBC acts as a bridge between Java applications and databases, enabling developers to access, insert, update, and delete data stored in a database using standard SQL queries.
+
+Q2. What are the steps involved in JDBC?
+
+The steps involved in using JDBC to interact with a database are as follows:
+
+Load the JDBC Driver: Load the appropriate JDBC driver for the database you want to connect to. This is achieved using the Class.forName() method, which dynamically loads the driver class.
+
+Establish a Connection: Use the DriverManager.getConnection() method to establish a connection to the database. You need to provide the database URL, username, and password as parameters.
+
+Create a Statement or PreparedStatement: Create a statement object to execute SQL queries. PreparedStatement is a preferred choice for its efficiency and protection against SQL injection attacks.
+
+Execute Queries or Updates: Use the statement to execute SQL queries or updates (insert, update, delete) using methods like executeQuery() or executeUpdate().
+
+Process the Results: If you executed a query, process the result set obtained from the database using ResultSet objects.
+
+Close Resources: Close the ResultSet, statement, and connection to release database resources properly.
+
+Q3. What are the types of statement in JDBC in Java?
+
+In JDBC, there are mainly three types of statements:
+
+Statement: The simplest type of statement used to execute static SQL queries at runtime. However, it may expose the application to SQL injection attacks and is less efficient for repeated queries with varying parameters.
+
+PreparedStatement: A precompiled SQL statement that allows you to execute dynamic SQL queries efficiently. It is useful for executing the same query multiple times with different parameter values while providing protection against SQL injection.
+
+CallableStatement: Used to execute stored procedures in the database. It allows calling predefined stored procedures with input and output parameters.
+
+Q4. What is Servlet in Java?
+
+A Servlet in Java is a server-side program that runs on the web server and handles client requests and generates dynamic responses. It follows the Java Servlet API specification, which defines the contract between a web server and the servlets. Servlets are primarily used to create dynamic web applications and provide a robust way to handle HTTP requests and responses.
+
+Q5. Explain the Life Cycle of a Servlet?
+
+The life cycle of a servlet consists of the following stages:
+
+Loading: When a servlet is first accessed or when the web server starts, the servlet container loads the servlet by instantiating its Servlet object.
+
+Initialization: After loading, the servlet container calls the init() method to initialize the servlet. This method is called only once during the life cycle.
+
+Handling Requests: Once the servlet is initialized, it can handle client requests. For each request, the servlet container calls the service() method, passing the request and response objects.
+
+Destroying: When the web server is shutting down or when the servlet is no longer needed, the container calls the destroy() method to give the servlet a chance to release resources and clean up.
+
+Q6. Explain the difference between the RequestDispatcher.forward() and HttpServletResponse.sendRedirect() methods?
+
+RequestDispatcher.forward(): This method is used to forward the request from one servlet to another resource (servlet, JSP, or HTML) on the server-side. It happens internally on the server, and the client is unaware of this forward. The URL displayed in the browser remains the same, and the client's browser does not know that the response came from a different resource.
+
+HttpServletResponse.sendRedirect(): This method is used to send an HTTP redirect status code to the client, instructing the client's browser to request a new URL. It triggers a new request from the client to the specified URL, causing a visible URL change in the browser. The redirect can be to any resource, including pages outside the application context.
+
+Q7. What is the purpose of the doGet() and doPost() methods in a servlet?
+
+These methods are used to handle HTTP GET and POST requests, respectively:
+
+doGet(): This method is called by the servlet container to handle HTTP GET requests. It is used to process requests that contain parameters encoded in the URL. It is suitable for requests that retrieve data from the server.
+
+doPost(): This method is called by the servlet container to handle HTTP POST requests. It is used for requests that send data in the request body (such as form submissions). It is suitable for requests that modify data on the server.
+
+Q8. Explain the JSP Model-View-Controller (MVC) architecture.
+
+The JSP Model-View-Controller (MVC) architecture is a design pattern used to develop web applications in a structured and modular way. It separates an application into three main components:
+
+Model: Represents the application's data and business logic. It manages the data and provides methods for data manipulation and retrieval.
+
+View: Represents the presentation layer and is responsible for rendering the user interface. It generates HTML or other client-side code to display the data to the user.
+
+Controller: Acts as an intermediary between the Model and View. It receives user input from the View, processes it, and updates the Model accordingly. It also decides which View should be displayed based on the user's actions.
+
+JSP pages are generally used as the View in the MVC architecture, while servlets or other server-side components act as the Controller to handle requests, interact with the Model, and determine the appropriate View to display.
+
+Q9. What are some of the advantages of Servlets?
+
+Some advantages of using Servlets in web development are:
+
+Platform Independence: Servlets are written in Java, making them platform-independent and easily portable to different web servers.
+
+Robust and Secure: Being a part of the Java ecosystem, Servlets inherit the robustness and security features of Java, making them a reliable choice for handling HTTP requests.
+
+Scalability: Servlets can handle multiple requests simultaneously, making them scalable for high-traffic applications.
+
+Extensibility: Servlets can be extended to support various protocols other than HTTP.
+
+Session Management: Servlets allow for session management, enabling the tracking of user interactions across multiple requests.
+
+Q10. What are the limitations of JSP?
+
+Some limitations of JSP are:
+
+Complexity: Mixing presentation logic and Java code in JSP can lead to complex and hard-to-maintain code, violating the principle of separation of concerns.
+
+Performance Overhead: JSP pages may suffer from performance overhead due to their translation into servlets by the container before execution.
+
+Limited Reusability: JSP pages are often designed for specific views, making it challenging to reuse them across different parts of the application.
+
+Limited Control: JSP may limit fine-grained control over the HTML output, as the code gets generated implicitly based on the JSP syntax.
+
+Debugging: Debugging JSP pages can be more challenging than debugging Java code, especially when dealing with complex UI components
