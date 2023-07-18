@@ -1,0 +1,64 @@
+                                                          Assignment Questions 1
+
+
+
+Q1. What is the difference between Compiler and Interpreter?
+
+Compiler: A compiler is a program that translates the entire source code of a program written in a high-level programming language into machine code or bytecode before the program is executed. The output of the compiler is a standalone executable file that can be run independently of the compiler.
+Interpreter: An interpreter is a program that reads and executes the source code line by line at runtime. It translates and executes each statement one at a time. Interpreted languages do not produce a separate executable file; the code is executed directly without the need for a compilation step.
+Q2. What is the difference between JDK, JRE, and JVM?
+
+JDK (Java Development Kit): JDK is a software development kit that provides the tools necessary to develop Java applications. It includes the Java Compiler (javac), Java Runtime Environment (JRE), and other development tools like debugger, profiler, etc.
+JRE (Java Runtime Environment): JRE is an environment that provides the runtime support for executing Java applications. It includes the JVM and core libraries required for running Java programs but does not contain development tools like the compiler.
+JVM (Java Virtual Machine): JVM is an abstract machine that provides the runtime environment for Java bytecode to be executed. It is responsible for converting bytecode into machine code and handling memory management and garbage collection. JVM implementations are platform-specific.
+Q3. How many types of memory areas are allocated by JVM?
+
+JVM divides memory into five main areas:
+Method Area: It stores class structures, method information, and static variables.
+Heap: The heap is the runtime data area where objects are allocated. It is shared among all threads and is the memory area used for dynamic memory allocation (object creation).
+Stack: Each thread has its own stack, which is used to store method invocations, local variables, and intermediate results. It is a region of memory that operates in a Last-In-First-Out (LIFO) manner.
+PC (Program Counter) Register: It holds the address of the currently executing JVM instruction.
+Native Method Stack: It contains all the native (non-Java) methods used in the application.
+Q4. What is JIT compiler?
+
+JIT (Just-In-Time) compiler is a part of the JVM that improves the performance of Java applications. It works by translating the Java bytecode (intermediate code) into native machine code at runtime, just before executing it. By doing so, the JIT compiler can take advantage of the specific hardware and optimize the code for the underlying system. This results in faster execution compared to interpreting bytecode directly.
+Q5. What are the various access specifiers in Java?
+
+Java has four access specifiers that define the visibility and accessibility of classes, methods, and variables:
+public: Accessible from anywhere, within the same class, from any other class, and from other packages.
+protected: Accessible within the same class, from any subclass (even in different packages), and from other classes in the same package.
+default (no specifier): Accessible within the same package (package-private).
+private: Accessible only within the same class.
+Q6. What is a compiler in Java?
+
+In Java, a compiler is a program that translates human-readable Java source code into machine-readable bytecode. It checks the syntax, performs type checking, and generates the corresponding bytecode that can be executed by the Java Virtual Machine (JVM). The resulting bytecode is platform-independent and can be run on any system with a compatible JVM.
+Q7. Explain the types of variables in Java?
+
+In Java, there are three types of variables:
+Local Variables: These variables are declared inside a method or a block and are accessible only within that block. They do not have a default value and must be explicitly initialized before use.
+Instance Variables (Non-static Variables): These variables are declared within a class but outside any method. They belong to the instance of the class and have default values (e.g., 0 for numeric types, null for objects, etc.).
+Class Variables (Static Variables): These variables are declared as static within a class. They are shared among all instances of the class and have a single copy in memory.
+Q8. What are the Data types in Java?
+
+Java has two categories of data types:
+Primitive Data Types: These are the basic data types in Java, representing simple values.
+Numeric types: byte, short, int, long, float, double.
+char: Represents a single Unicode character.
+boolean: Represents a boolean value (true or false).
+Reference Data Types: These data types are references to objects, which are instances of classes or interfaces. Examples include String, user-defined classes, arrays, etc.
+Q9. What are the identifiers in Java?
+
+In Java, an identifier is a name used to identify a class, method, variable, or label. Rules for naming identifiers in Java include:
+It must start with a letter, currency character ($), or underscore (_).
+After the initial character, it can contain letters, digits, currency characters, or underscores.
+It cannot be a reserved keyword (e.g., if, class, while, etc.).
+It is case-sensitive.
+Q10. Explain the architecture of JVM.
+
+The architecture of the Java Virtual Machine (JVM) consists of several components:
+Class Loader Subsystem: Responsible for loading classes into memory.
+Runtime Data Area: Divided into method area, heap, stack, PC register, and native method stack, used for different purposes.
+Execution Engine: Executes the bytecode, typically using the Just-In-Time (JIT) compiler to convert bytecode into machine code.
+Native Interface: Allows Java code to interact with native libraries written in other programming languages.
+Native Method Libraries: Contains native libraries required by the JVM for low-level tasks.
+This architecture enables Java's platform-independence, as the same bytecode can be executed on any system with a compatible JVM. The JVM handles memory management, garbage collection, and provides the runtime environment for Java applications to execute safely and efficiently.
