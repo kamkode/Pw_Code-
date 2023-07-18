@@ -1,0 +1,259 @@
+                                              Assignment Questions 8
+
+
+1.public class Solution {
+    public int minimumDeleteSum(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = m - 1; i >= 0; i--) {
+            dp[i][n] = dp[i + 1][n] + s1.charAt(i);
+        }
+
+        for (int j = n - 1; j >= 0; j--) {
+            dp[m][j] = dp[m][j + 1] + s2.charAt(j);
+        }
+
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (s1.charAt(i) == s2.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j + 1];
+                } else {
+                    dp[i][j] = Math.min(s1.charAt(i) + dp[i + 1][j], s2.charAt(j) + dp[i][j + 1]);
+                }
+            }
+        }
+
+        return dp[0][0];
+    }
+}
+
+
+
+2.public class Solution {
+    public boolean isValid(String s) {
+        int leftBalance = 0; // Tracks the balance of left parentheses and '*' (open count).
+        int rightBalance = 0; // Tracks the balance of right parentheses and '*' (close count).
+
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                leftBalance++;
+                rightBalance++;
+            } else if (c == ')') {
+                leftBalance = Math.max(leftBalance - 1, 0);
+                rightBalance--;
+            } else { // c == '*'
+                leftBalance++; // '*' can act as an open parenthesis '('
+                rightBalance++; // '*' can also act as a close parenthesis ')'
+            }
+
+            // If the number of right parentheses becomes negative, it means we have extra closing parentheses without any corresponding opening ones.
+            if (rightBalance < 0) {
+                return false;
+            }
+        }
+
+        // After the loop, leftBalance will represent the remaining unbalanced left parentheses and '*'s.
+        // If there are any remaining unbalanced left parentheses, it means we have extra opening parentheses without corresponding closing ones.
+        return leftBalance == 0;
+    }
+}
+
+
+3.public class Solution {
+    public int minDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        int[][] dp = new int[m + 1][n + 1];
+
+        // Initialize the base cases.
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 0; j <= n; j++) {
+            dp[0][j] = j;
+        }
+
+        // Fill in the DP table.
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
+}
+
+
+4.class Solution {
+    public String tree2str(TreeNode root) {
+        if (root == null) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(root.val);
+
+        if (root.left != null || root.right != null) {
+            sb.append("(").append(tree2str(root.left)).append(")");
+            if (root.right != null) {
+                sb.append("(").append(tree2str(root.right)).append(")");
+            }
+        }
+
+        return sb.toString();
+    }
+}
+
+
+
+5.public static void main(String[] args) {
+    Solution solution = new Solution();
+
+    // Example 1
+    TreeNode root1 = new TreeNode(1);
+    root1.left = new TreeNode(2);
+    root1.right = new TreeNode(3);
+    root1.left.left = new TreeNode(4);
+    System.out.println(solution.tree2str(root1)); // Output: "1(2(4))(3)"
+
+    // Example 2
+    TreeNode root2 = new TreeNode(1);
+    root2.left = new TreeNode(2);
+    root2.right = new TreeNode(3);
+    root2.left.right = new TreeNode(4);
+    System.out.println(solution.tree2str(root2)); // Output: "1(2()(4))(3)"
+}
+
+
+6.public static void main(String[] args) {
+    Solution solution = new Solution();
+
+    String s1 = "cbaebabacd";
+    String p1 = "abc";
+    System.out.println(solution.findAnagrams(s1, p1)); // Output: [0, 6]
+
+    String s2 = "abab";
+    String p2 = "ab";
+    System.out.println(solution.findAnagrams(s2, p2)); // Output: [0, 1, 2]
+}
+
+
+
+7.class Solution {
+    public int alphaDigtSearch(int finish, String sourse, ArrayList<String> stack, boolean isAlpha)
+    {
+        int start = finish;
+
+        if (isAlpha)
+            while (finish < sourse.length() && Character.isAlphabetic(sourse.charAt(finish))) finish++;
+        else
+            while (finish < sourse.length() && Character.isDigit(sourse.charAt(finish))) finish++;
+
+        if (start != finish)
+            stack.add(sourse.substring(start, finish));
+        if (finish < sourse.length() && sourse.charAt(finish) == '[')
+            finish++;
+        return finish;
+    }
+
+    public void stackWork(ArrayList<String> stack)
+    {
+        String str = null;
+        int repeat;
+        StringBuilder answ = new StringBuilder();
+
+        if (stack.size() > 0)
+        {
+            answ = new StringBuilder(stack.get(stack.size() - 1));
+            stack.remove(stack.size() - 1);
+        }
+        while (stack.size() > 0 && !Character.isDigit(stack.get(stack.size() - 1).charAt(0))) {
+            answ.insert(0, stack.get(stack.size() - 1));
+            stack.remove(stack.size() - 1);
+        }
+        if (stack.size() > 0 && Character.isDigit(stack.get(stack.size() - 1).charAt(0)))
+        {
+            repeat = Integer.parseInt(stack.get(stack.size() - 1));
+            stack.remove(stack.size() - 1);
+            answ = repeat(answ, repeat);
+        }
+
+        while (stack.size() > 0 && Character.isAlphabetic(stack.get(stack.size() - 1).charAt(0))) {
+            answ.insert(0, stack.get(stack.size() - 1));
+            stack.remove(stack.size() - 1);
+        }
+        stack.add(answ.toString());
+    }
+
+    private StringBuilder repeat(StringBuilder answ, int i) {
+        StringBuilder tmp = new StringBuilder();
+        for (int j = 0; j < i; j++)
+            tmp.append(answ);
+        return tmp;
+    }
+
+    public String decodeString(String s)
+    {
+        ArrayList<String> stack = new ArrayList<>();
+        int finish = 0;
+        finish = alphaDigtSearch(finish, s, stack, true);
+        while (finish < s.length())
+        {
+            finish = alphaDigtSearch(finish, s, stack, false);
+            finish = alphaDigtSearch(finish, s, stack, true);
+            if (finish < s.length() && s.charAt(finish) == ']') {
+                stackWork(stack);
+                finish++;
+            }
+        }
+        if (stack.size() > 1)
+            stackWork(stack);
+        return stack.get(0);
+    }
+}
+
+
+8.public class Solution {
+    public boolean buddyStrings(String s, String goal) {
+        if (s.length() != goal.length()) {
+            return false;
+        }
+
+        if (s.equals(goal)) {
+            // Check for duplicate characters in s.
+            int[] count = new int[26];
+            for (char c : s.toCharArray()) {
+                count[c - 'a']++;
+                if (count[c - 'a'] > 1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        int firstDiff = -1;
+        int secondDiff = -1;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != goal.charAt(i)) {
+                if (firstDiff == -1) {
+                    firstDiff = i;
+                } else if (secondDiff == -1) {
+                    secondDiff = i;
+                } else {
+                    return false; // More than 2 differences, cannot swap to make equal.
+                }
+            }
+        }
+
+        return (secondDiff != -1 && s.charAt(firstDiff) == goal.charAt(secondDiff) &&
+                s.charAt(secondDiff) == goal.charAt(firstDiff));
+    }
+}
